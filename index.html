@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070c12" />
+  <title>CubeTrain</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="authScreen" class="screen">
+    <div class="auth-shell">
+      <section class="auth-brand">
+        <div class="logo-cube" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <div class="brand-name">Cube<span>Train</span></div>
+          <p>Aprenda. Treine. Evolua.</p>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="auth-tabs">
+          <button id="showSignIn" class="tab active" type="button">Já tenho login</button>
+          <button id="showSignUp" class="tab" type="button">Criar uma conta</button>
+        </div>
+
+        <div id="authStatus" class="auth-status">
+          Configure sua chave do Clerk no arquivo <b>app.js</b> para ativar o login online.
+        </div>
+
+        <div id="clerkMount" class="clerk-mount"></div>
+
+        <div id="demoAuth" class="demo-auth">
+          <p class="demo-label">Prévia da tela</p>
+          <label>
+            Nome de usuário
+            <input id="demoName" value="Davi Sanchez" autocomplete="username" />
+          </label>
+          <label>
+            Senha
+            <input id="demoPassword" type="password" value="HU" autocomplete="current-password" />
+          </label>
+          <button id="demoEnter" class="primary" type="button">Entrar na prévia</button>
+          <small>Esta prévia serve só para testar a interface. O login entre aparelhos é ativado pelo Clerk.</small>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="homeScreen" class="screen hidden">
+    <header class="topbar">
+      <a class="brand-small" href="#inicio">
+        <div class="mini-logo"></div>
+        Cube<span>Train</span>
+      </a>
+      <nav>
+        <button class="nav-btn active" data-section="inicio" type="button">Início</button>
+        <button class="nav-btn" data-section="aprender" type="button">Aprender</button>
+        <button class="nav-btn" data-section="timer" type="button">Cronômetro</button>
+        <button class="nav-btn" data-section="videos" type="button">Vídeos</button>
+        <button class="nav-btn" data-section="evolucao" type="button">Minha evolução</button>
+      </nav>
+      <div class="user-area">
+        <span id="displayUser">Davi Sanchez</span>
+        <button id="logoutBtn" class="ghost" type="button">Sair</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="content-section active-section">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">BEM-VINDO AO CUBETRAIN</p>
+            <h1>Qual é o seu<br><span>próximo desafio?</span></h1>
+            <p class="lead">Escolha o que quer aprender e treine no seu ritmo.</p>
+            <button class="primary jump" data-go="aprender" type="button">Começar a treinar</button>
+          </div>
+          <div class="hero-cube" aria-label="Cubo mágico ilustrado">
+            <div class="face">
+              <i class="w"></i><i class="r"></i><i class="b"></i>
+              <i class="g"></i><i class="y"></i><i class="r"></i>
+              <i class="b"></i><i class="o"></i><i class="g"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <article class="panel">
+            <p class="eyebrow">EM BREVE</p>
+            <h2>Escolha seu cubo</h2>
+            <div class="choice-row">
+              <button class="choice coming" type="button">3×3</button>
+              <button class="choice coming" type="button">2×2</button>
+              <button class="choice coming" type="button">Pyraminx</button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="eyebrow">TREINO RÁPIDO</p>
+            <h2>Cronômetro</h2>
+            <div id="miniTimer" class="mini-timer">0.00</div>
+            <button class="primary jump" data-go="timer" type="button">Abrir cronômetro</button>
+          </article>
+
+          <article class="panel">
+            <p class="eyebrow">PROGRESSO</p>
+            <h2>Minha evolução</h2>
+            <div class="progress-row"><span>3×3</span><progress value="0" max="100"></progress><b>0%</b></div>
+            <div class="progress-row"><span>2×2</span><progress value="0" max="100"></progress><b>0%</b></div>
+            <div class="progress-row"><span>Pyraminx</span><progress value="0" max="100"></progress><b>0%</b></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="aprender" class="content-section">
+        <div class="empty-state">
+          <h2>Aprender</h2>
+          <p>Aqui vamos colocar 3×3, 2×2 e Pyraminx com cubos 3D animados.</p>
+        </div>
+      </section>
+
+      <section id="timer" class="content-section">
+        <div class="timer-card">
+          <p class="eyebrow">CRONÔMETRO</p>
+          <h2>Treino livre</h2>
+          <div id="timerDisplay" class="timer-display">0.00</div>
+          <div class="timer-actions">
+            <button id="startTimer" class="primary" type="button">Iniciar</button>
+            <button id="saveTime" class="secondary" type="button" disabled>Registrar</button>
+            <button id="resetTimer" class="secondary" type="button">Zerar</button>
+          </div>
+          <p class="timer-tip">Você também pode usar a tecla Espaço.</p>
+          <div class="time-stats">
+            <span>Melhor: <b id="bestTime">—</b></span>
+            <span>Média: <b id="avgTime">—</b></span>
+          </div>
+          <ol id="timeList"></ol>
+        </div>
+      </section>
+
+      <section id="videos" class="content-section">
+        <div class="empty-state">
+          <h2>Vídeos</h2>
+          <p>Aqui vamos colocar os vídeos recomendados para cada etapa.</p>
+        </div>
+      </section>
+
+      <section id="evolucao" class="content-section">
+        <div class="empty-state">
+          <h2>Minha evolução</h2>
+          <p>Aqui ficarão algoritmos aprendidos, tempos, porcentagens e sequência de treinos.</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
