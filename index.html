@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070c12" />
+  <title>CubeTrain</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="authScreen" class="screen">
+    <div class="auth-shell">
+      <section class="auth-brand">
+        <div class="logo-cube" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+        <div>
+          <div class="brand-name">Cube<span>Train</span></div>
+          <p>Aprenda. Treine. Evolua.</p>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <h2>Quem vai treinar?</h2>
+        <p>Digite seu nome para entrar no CubeTrain.</p>
+        <form id="nameForm">
+          <input id="nameInput" type="text" autocomplete="name" placeholder="Seu nome" maxlength="40" required>
+          <button class="primary" type="submit">Entrar</button>
+        </form>
+        <p class="timer-tip">O último nome usado fica salvo neste aparelho.</p>
+      </section>
+    </div>
+  </div>
+
+  <div id="homeScreen" class="screen hidden">
+    <header class="topbar">
+      <a class="brand-small" href="#inicio">
+        <div class="mini-logo"></div>
+        Cube<span>Train</span>
+      </a>
+      <nav>
+        <button class="nav-btn active" data-section="inicio" type="button">Início</button>
+        <button class="nav-btn" data-section="aprender" type="button">Aprender</button>
+        <button class="nav-btn" data-section="timer" type="button">Cronômetro</button>
+        <button class="nav-btn" data-section="videos" type="button">Vídeos</button>
+        <button class="nav-btn" data-section="evolucao" type="button">Minha evolução</button>
+      </nav>
+      <div class="user-area">
+        <span id="displayUser">Usuário</span>
+        <button id="logoutBtn" class="ghost" type="button">Sair</button>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="content-section active-section">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">BEM-VINDO AO CUBETRAIN</p>
+            <h1>Qual é o seu<br><span>próximo desafio?</span></h1>
+            <p class="lead">Escolha o que quer aprender e treine no seu ritmo.</p>
+            <button class="primary jump" data-go="aprender" type="button">Começar a treinar</button>
+          </div>
+          <div class="hero-cube" aria-label="Cubo mágico ilustrado">
+            <div class="face">
+              <i class="w"></i><i class="r"></i><i class="b"></i>
+              <i class="g"></i><i class="y"></i><i class="r"></i>
+              <i class="b"></i><i class="o"></i><i class="g"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <article class="panel">
+            <p class="eyebrow">EM BREVE</p>
+            <h2>Escolha seu cubo</h2>
+            <div class="choice-row">
+              <button id="home3x3" class="choice" type="button">3×3</button>
+              <button class="choice coming" type="button">2×2</button>
+              <button class="choice coming" type="button">Pyraminx</button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <p class="eyebrow">TREINO RÁPIDO</p>
+            <h2>Cronômetro</h2>
+            <div id="miniTimer" class="mini-timer">0.00</div>
+            <button class="primary jump" data-go="timer" type="button">Abrir cronômetro</button>
+          </article>
+
+          <article class="panel">
+            <p class="eyebrow">PROGRESSO</p>
+            <h2>Minha evolução</h2>
+            <div class="progress-row"><span>3×3</span><progress value="0" max="100"></progress><b>0%</b></div>
+            <div class="progress-row"><span>2×2</span><progress value="0" max="100"></progress><b>0%</b></div>
+            <div class="progress-row"><span>Pyraminx</span><progress value="0" max="100"></progress><b>0%</b></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="aprender" class="content-section">
+        <div id="learnHome" class="learn-shell">
+          <p class="eyebrow">APRENDER</p>
+          <h2>Escolha seu cubo</h2>
+          <div class="puzzle-grid">
+            <button id="open3x3" class="puzzle-card" type="button">
+              <strong>3×3</strong>
+              <span>CFOP completo</span>
+              <b id="threeProgress">0%</b>
+            </button>
+            <button class="puzzle-card disabled-card" type="button">
+              <strong>2×2</strong><span>Em breve</span>
+            </button>
+            <button class="puzzle-card disabled-card" type="button">
+              <strong>Pyraminx</strong><span>Em breve</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="cfopHome" class="learn-shell hidden">
+          <button id="backToPuzzles" class="ghost back-btn" type="button">← Voltar</button>
+          <p class="eyebrow">3×3 • CFOP</p>
+          <h2>O que você quer treinar?</h2>
+          <p class="lead small-lead">Você pode escolher qualquer parte. A ordem da resolução é Cruz → F2L → OLL → PLL.</p>
+
+          <div class="cfop-progress-wrap">
+            <div class="progress-row"><span>F2L</span><progress id="f2lProgressBar" value="0" max="41"></progress><b id="f2lProgressText">0/41</b></div>
+            <div class="progress-row"><span>OLL</span><progress id="ollProgressBar" value="0" max="57"></progress><b id="ollProgressText">0/57</b></div>
+            <div class="progress-row"><span>PLL</span><progress id="pllProgressBar" value="0" max="21"></progress><b id="pllProgressText">0/21</b></div>
+          </div>
+
+          <div class="cfop-choice-grid">
+            <button class="cfop-choice" data-set="F2L" type="button"><strong>F2L</strong><span>41 casos</span><small>Primeiras duas camadas</small></button>
+            <button class="cfop-choice" data-set="OLL" type="button"><strong>OLL</strong><span>57 casos</span><small>Orientar a última camada</small></button>
+            <button class="cfop-choice" data-set="PLL" type="button"><strong>PLL</strong><span>21 casos</span><small>Permutar a última camada</small></button>
+          </div>
+          <div class="speed-section">
+            <p class="eyebrow">VELOCIDADE</p>
+            <h3>Vamos treinar sua velocidade?</h3>
+            <div class="speed-choice-grid">
+              <button id="openFingerTricks" class="speed-choice" type="button">
+                <strong>Truques de dedo</strong>
+                <span>Movimentos mais rápidos e com menos regrips</span>
+              </button>
+              <button id="openMetronome" class="speed-choice" type="button">
+                <strong>Metrônomo</strong>
+                <span>Treine um movimento por batida e ganhe constância</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="caseLibrary" class="learn-shell hidden">
+          <button id="backToCfop" class="ghost back-btn" type="button">← CFOP</button>
+          <div class="library-head">
+            <div>
+              <p id="libraryEyebrow" class="eyebrow">CFOP</p>
+              <h2 id="libraryTitle">Casos</h2>
+              <p id="librarySubtitle"></p>
+            </div>
+            <div class="library-stat"><b id="libraryDone">0</b><span>dominados</span></div>
+          </div>
+          <div id="caseGrid" class="case-grid"></div>
+        </div>
+
+        <div id="caseTrainer" class="learn-shell hidden">
+          <button id="backToLibrary" class="ghost back-btn" type="button">← Casos</button>
+          <p id="trainerGroup" class="eyebrow"></p>
+          <h2 id="trainerCaseName"></h2>
+          <p class="lead small-lead">Faça o caso 5 vezes. Para dominar, as 5 tentativas precisam estar corretas e a média deve ser de 10,00 s ou menos.</p>
+
+          <div class="trainer-layout">
+            <article class="panel case-info">
+              <div class="cube-teacher">
+                <div class="cube-title-row">
+                  <div>
+                    <p class="eyebrow">CUBO PROFESSOR 3D</p>
+                    <strong id="caseBigLabel">OLL 1</strong>
+                  </div>
+                  <select id="cubeSpeed" aria-label="Velocidade da animação">
+                    <option value="0.5">0,5×</option>
+                    <option value="0.75">0,75×</option>
+                    <option value="1" selected>1×</option>
+                    <option value="1.5">1,5×</option>
+                    <option value="2">2×</option>
+                  </select>
+                </div>
+
+                <div id="cubeLoading" class="cube-loading">Carregando o caso e o algoritmo...</div>
+
+                <div class="cube-stage-box">
+                  <div id="cubeStageBadge" class="cube-stage-badge">PRONTO</div>
+                  <p id="cubeStageText">Primeiro veja como montar exatamente este caso.</p>
+                </div>
+
+                <div id="caseCubeMount" class="case-cube-mount" aria-label="Cubo 3D do caso"></div>
+
+                <div class="case-animation-actions">
+                  <button id="buildCaseBtn" class="primary case-animation-btn" type="button">
+                    <span>1</span>
+                    <div><strong>Montar este caso</strong><small>Do cubo resolvido até a posição de treino</small></div>
+                  </button>
+                  <button id="solveCaseBtn" class="secondary case-animation-btn" type="button" disabled>
+                    <span>2</span>
+                    <div><strong>Resolver este caso</strong><small>Da posição do caso até resolvido</small></div>
+                  </button>
+                </div>
+
+                <div class="two-alg-grid">
+                  <div class="algorithm-box">
+                    <span>Como chegar no caso</span>
+                    <code id="caseSetupAlgorithm">Carregando...</code>
+                  </div>
+                  <div class="algorithm-box">
+                    <span>Como resolver</span>
+                    <code id="caseAlgorithm">Carregando...</code>
+                  </div>
+                </div>
+
+                <p class="cube-help">Acompanhe um movimento por vez. Depois que o cubo chegar no caso, clique em <b>Resolver este caso</b>.</p>
+                <p id="cubeLoadError" class="cube-error hidden"></p>
+              </div>
+              <a id="caseReference" class="secondary link-button" target="_blank" rel="noopener noreferrer">Abrir referência do caso</a>
+            </article>
+
+            <article class="panel case-practice">
+              <p class="eyebrow">TESTE DE 5 TENTATIVAS</p>
+              <div id="caseTimer" class="timer-display training-time">0.00</div>
+              <button id="caseTimerButton" class="primary hold-to-start" type="button">SEGURE PARA PREPARAR</button>
+              <p class="timer-tip">Computador: segure <b>Espaço</b> até aparecer OK e solte. Celular/iPad: faça o mesmo segurando o botão acima. Para parar, toque ou aperte Espaço.</p>
+
+              <div id="judgeButtons" class="judge-buttons hidden">
+                <button id="correctAttempt" class="primary" type="button">✓ Fiz corretamente</button>
+                <button id="wrongAttempt" class="secondary" type="button">✕ Errei</button>
+              </div>
+
+              <div id="attemptDots" class="attempt-dots"></div>
+              <div class="training-summary">
+                <span>Média: <b id="trainingAverage">—</b></span>
+                <span id="trainingResult">0/5 tentativas</span>
+              </div>
+              <button id="restartTraining" class="secondary hidden" type="button">Treinar novamente</button>
+            </article>
+          </div>
+        </div>
+
+        <div id="fingerTricksPanel" class="learn-shell hidden">
+          <button id="backFromFingerTricks" class="ghost back-btn" type="button">← 3×3</button>
+          <p class="eyebrow">3×3 • VELOCIDADE</p>
+          <h2>Truques de dedo</h2>
+          <p class="lead small-lead">Treine movimentos sem reposicionar a mão toda. Comece devagar e aumente a velocidade quando o movimento estiver limpo.</p>
+
+          <div class="finger-grid">
+            <article class="panel finger-card">
+              <strong>U / U'</strong>
+              <p>Treine girar a camada de cima usando o indicador, evitando girar o pulso inteiro.</p>
+              <button class="secondary finger-drill" data-drill="U U' U U'" type="button">Treinar sequência</button>
+            </article>
+            <article class="panel finger-card">
+              <strong>R / R'</strong>
+              <p>Treine manter a pegada do cubo e fazer o giro da face direita sem regrip desnecessário.</p>
+              <button class="secondary finger-drill" data-drill="R R' R R'" type="button">Treinar sequência</button>
+            </article>
+            <article class="panel finger-card">
+              <strong>Sexy Move</strong>
+              <p>Uma ótima sequência para coordenação: R U R' U'. Tente manter as mãos próximas da posição inicial.</p>
+              <button class="secondary finger-drill" data-drill="R U R' U'" type="button">Treinar sequência</button>
+            </article>
+            <article class="panel finger-card">
+              <strong>Sledgehammer</strong>
+              <p>Treine R' F R F'. É útil para velocidade e controle de dedos.</p>
+              <button class="secondary finger-drill" data-drill="R' F R F'" type="button">Treinar sequência</button>
+            </article>
+          </div>
+
+          <div id="fingerDrillBox" class="panel drill-box hidden">
+            <p class="eyebrow">SEQUÊNCIA</p>
+            <div id="fingerDrillText" class="drill-sequence"></div>
+            <p>Faça 10 repetições devagar, depois 10 num ritmo confortável e só então tente acelerar.</p>
+          </div>
+        </div>
+
+        <div id="metronomePanel" class="learn-shell hidden">
+          <button id="backFromMetronome" class="ghost back-btn" type="button">← 3×3</button>
+          <p class="eyebrow">3×3 • VELOCIDADE</p>
+          <h2>Vamos treinar sua velocidade?</h2>
+          <p class="lead small-lead">Faça <b>um movimento por batida</b>. O objetivo primeiro é não travar. Quando ficar fácil, aumente o BPM.</p>
+
+          <div class="panel metronome-card">
+            <div class="bpm-display"><span id="bpmValue">60</span><small>BPM</small></div>
+            <input id="bpmSlider" type="range" min="30" max="240" value="60" step="1">
+            <div class="metronome-controls">
+              <button id="minusBpm" class="secondary" type="button">−5</button>
+              <button id="toggleMetronome" class="primary" type="button">Começar</button>
+              <button id="plusBpm" class="secondary" type="button">+5</button>
+            </div>
+            <div id="beatLight" class="beat-light"></div>
+            <p id="metronomeHint" class="timer-tip">Sugestão: comece em 50–60 BPM e aumente aos poucos.</p>
+          </div>
+
+          <div class="panel speed-drill-box">
+            <p class="eyebrow">TREINO SUGERIDO</p>
+            <h3>R U R' U'</h3>
+            <p>Faça um movimento em cada batida. Quando conseguir manter 20 ciclos sem travar, suba 5 BPM.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="timer" class="content-section" tabindex="-1">
+        <div class="timer-card">
+          <p class="eyebrow">CRONÔMETRO</p>
+          <h2>Treino livre</h2>
+          <div id="timerDisplay" class="timer-display">0.00</div>
+          <div class="timer-actions">
+            <button id="startTimer" class="primary" type="button">Iniciar</button>
+            <button id="saveTime" class="secondary" type="button" disabled>Registrar</button>
+            <button id="resetTimer" class="secondary" type="button">Zerar</button>
+          </div>
+          <p class="timer-tip">Segure Espaço até aparecer <b>OK</b>, solte para começar e aperte Espaço novamente para parar.</p>
+          <div class="time-stats">
+            <span>Melhor: <b id="bestTime">—</b></span>
+            <span>Média: <b id="avgTime">—</b></span>
+          </div>
+          <ol id="timeList"></ol>
+        </div>
+      </section>
+
+      <section id="videos" class="content-section">
+        <div class="empty-state">
+          <h2>Vídeos</h2>
+          <p>Aqui vamos colocar os vídeos recomendados para cada etapa.</p>
+        </div>
+      </section>
+
+      <section id="evolucao" class="content-section">
+        <div class="empty-state">
+          <h2>Minha evolução</h2>
+          <p>Aqui ficarão algoritmos aprendidos, tempos, porcentagens e sequência de treinos.</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="./auth.js" defer></script>
+  <script src="./cfop-data.js"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
